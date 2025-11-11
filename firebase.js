@@ -110,6 +110,20 @@ function listenToFirebase(callback) {
     database.ref('quizState').on('value', (snapshot) => {
       const data = snapshot.val();
       if (data) {
+        // Migrate old team names to letter format
+        if (data.teams && Array.isArray(data.teams)) {
+          data.teams.forEach((team, index) => {
+            const teamLetter = String.fromCharCode(65 + index); // A=65, B=66, etc.
+            const expectedName = `Team ${teamLetter}`;
+            const oldName = `Team ${team.id}`;
+            
+            // Only update if it's still using the old numeric format
+            if (team.name === oldName) {
+              team.name = expectedName;
+            }
+          });
+        }
+        
         // Immediate update without delay
         requestAnimationFrame(() => callback(data));
       }

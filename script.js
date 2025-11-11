@@ -15,14 +15,14 @@ let gameState = {
   quizTitle: "🧠 YUZONE QUIZ 🧠",
   showInstructions: true,
   teams: [
-    { id: 1, name: "Team 1", score: 0 },
-    { id: 2, name: "Team 2", score: 0 },
-    { id: 3, name: "Team 3", score: 0 },
-    { id: 4, name: "Team 4", score: 0 },
-    { id: 5, name: "Team 5", score: 0 },
-    { id: 6, name: "Team 6", score: 0 },
-    { id: 7, name: "Team 7", score: 0 },
-    { id: 8, name: "Team 8", score: 0 }
+    { id: 1, name: "Team A", score: 0 },
+    { id: 2, name: "Team B", score: 0 },
+    { id: 3, name: "Team C", score: 0 },
+    { id: 4, name: "Team D", score: 0 },
+    { id: 5, name: "Team E", score: 0 },
+    { id: 6, name: "Team F", score: 0 },
+    { id: 7, name: "Team G", score: 0 },
+    { id: 8, name: "Team H", score: 0 }
   ],
   timer: {
     isRunning: false,
@@ -82,6 +82,22 @@ function loadFromLocalStorage() {
     const saved = localStorage.getItem('yuzone_quiz_state');
     if (saved) {
       const loadedState = JSON.parse(saved);
+      
+      // Migrate old team names (Team 1, Team 2) to new format (Team A, Team B)
+      if (loadedState.teams && Array.isArray(loadedState.teams)) {
+        loadedState.teams.forEach((team, index) => {
+          const teamLetter = String.fromCharCode(65 + index); // A=65, B=66, etc.
+          const expectedName = `Team ${teamLetter}`;
+          const oldName = `Team ${team.id}`;
+          
+          // Only update if it's still using the old numeric format
+          if (team.name === oldName) {
+            team.name = expectedName;
+            console.log(`🔄 Migrated ${oldName} → ${expectedName}`);
+          }
+        });
+      }
+      
       // Return the loaded state without modifying gameState directly
       // (applyStateUpdate will handle the merge)
       return loadedState;
@@ -112,8 +128,24 @@ function getCurrentRound() {
 
 function getCurrentQuestion() {
   // If showing backup question, return it
-  if (gameState.isBackupQuestion && backupQuestions && gameState.backupQuestionId) {
-    return backupQuestions.backupQuestions.find(q => q.id === gameState.backupQuestionId);
+  if (gameState.isBackupQuestion && gameState.backupQuestionId) {
+    if (!backupQuestions || !backupQuestions.backupQuestions) {
+      console.warn('⚠️ Backup questions not loaded yet, attempting to load...');
+      // Try to load backup questions if not already loaded
+      if (typeof loadBackupQuestions === 'function') {
+        loadBackupQuestions().then(() => {
+          if (typeof updateQuestionDisplay === 'function') {
+            updateQuestionDisplay();
+          }
+        });
+      }
+      return null;
+    }
+    const backupQ = backupQuestions.backupQuestions.find(q => q.id === gameState.backupQuestionId);
+    if (!backupQ) {
+      console.error('❌ Backup question not found:', gameState.backupQuestionId);
+    }
+    return backupQ;
   }
   
   // Otherwise return normal question
@@ -141,6 +173,7 @@ function loadBackupQuestion(backupId) {
   
   saveToLocalStorage();
   broadcastChange();
+  syncToFirebase(gameState);
   
   console.log("🔄 Loaded backup question #" + backupId);
 }
@@ -153,6 +186,12 @@ function returnToNormalQuestion() {
   
   saveToLocalStorage();
   broadcastChange();
+  syncToFirebase(gameState);
+  
+  // Force UI update
+  if (typeof updateQuestionDisplay === 'function') {
+    updateQuestionDisplay();
+  }
   
   console.log("↩️ Returned to normal question");
 }
@@ -212,9 +251,10 @@ function hideAnswer() {
 
 function addTeam() {
   const newTeamId = gameState.teams.length + 1;
+  const teamLetter = String.fromCharCode(64 + newTeamId); // A=65, B=66, etc.
   const newTeam = {
     id: newTeamId,
-    name: `Team ${newTeamId}`,
+    name: `Team ${teamLetter}`,
     score: 0
   };
   
@@ -271,10 +311,21 @@ function updateTeamScore(teamId, points) {
 function updateTeamName(teamId, newName) {
   const team = gameState.teams.find(t => t.id === teamId);
   if (team) {
-    team.name = newName;
+    team.name = newName.trim();
     saveToLocalStorage();
     broadcastChange();
+    syncToFirebase(gameState);
     syncScores(gameState.teams);
+    
+    // Update UI
+    if (typeof updateScoreboard === 'function') {
+      updateScoreboard();
+    }
+    if (typeof updateTeamsManager === 'function') {
+      updateTeamsManager();
+    }
+    
+    console.log(`✏️ Team ${teamId} renamed to: ${newName.trim()}`);
   }
 }
 
@@ -790,6 +841,38 @@ function mergeGameState(newData) {
   return hasChanges;
 }
 
+// Migrate team names from numeric to letter format
+function migrateTeamNames() {
+  let migrated = false;
+  
+  gameState.teams.forEach((team, index) => {
+    const teamLetter = String.fromCharCode(65 + index); // A=65, B=66, etc.
+    const expectedName = `Team ${teamLetter}`;
+    const oldName = `Team ${team.id}`;
+    
+    // Update if it's still using the old numeric format
+    if (team.name === oldName || team.name === `Team ${index + 1}`) {
+      team.name = expectedName;
+      migrated = true;
+      console.log(`🔄 Migrated team ${team.id}: ${oldName} → ${expectedName}`);
+    }
+  });
+  
+  // Save changes if any migration occurred
+  if (migrated) {
+    saveToLocalStorage();
+    broadcastChange();
+    syncToFirebase(gameState);
+    updateScoreboard();
+    
+    if (typeof updateTeamsManager === 'function') {
+      updateTeamsManager();
+    }
+    
+    console.log("✅ Team name migration completed");
+  }
+}
+
 // ============================================
 // 🚀 INITIALIZATION
 // ============================================
@@ -816,6 +899,9 @@ async function initializeApp() {
     console.log("📂 Loading initial state from localStorage");
     applyStateUpdate(savedState);
   }
+  
+  // Migrate team names on first load (for existing data)
+  migrateTeamNames();
   
   // Setup Firebase listener
   listenToFirebase(handleFirebaseUpdate);
@@ -890,13 +976,33 @@ function applyStateUpdate(newState) {
     hasChanges = true;
     
     // Show or hide instructions on main screen
-    if (typeof window.showInstructions === 'function' && typeof window.hideInstructions === 'function') {
-      if (incomingShowInstructions) {
-        window.showInstructions();
+    setTimeout(() => {
+      if (typeof window.showInstructions === 'function' && typeof window.hideInstructions === 'function') {
+        if (incomingShowInstructions) {
+          window.showInstructions();
+        } else {
+          window.hideInstructions(true);
+        }
       } else {
-        window.hideInstructions(true);
+        // Fallback: Direct DOM manipulation
+        const overlay = document.getElementById('instructions-overlay');
+        const projectorContainer = document.querySelector('.projector-container');
+        const timerCorner = document.querySelector('.timer-corner');
+        
+        if (overlay && projectorContainer && timerCorner) {
+          if (incomingShowInstructions) {
+            overlay.style.display = 'flex';
+            projectorContainer.style.display = 'none';
+            timerCorner.style.display = 'none';
+          } else {
+            overlay.style.display = 'none';
+            projectorContainer.style.display = 'grid';
+            timerCorner.style.display = 'block';
+          }
+        }
       }
-    }
+    }, 50);
+    
     console.log('📖 Instructions display:', incomingShowInstructions ? 'shown' : 'hidden');
   }
   
@@ -904,13 +1010,33 @@ function applyStateUpdate(newState) {
   if (newState.isBackupQuestion !== gameState.isBackupQuestion) {
     gameState.isBackupQuestion = newState.isBackupQuestion;
     hasChanges = true;
-    console.log('🔄 Backup question mode:', newState.isBackupQuestion);
+    console.log('🔄 Backup question mode changed:', newState.isBackupQuestion);
+    
+    // Reset options visibility when backup question state changes
+    if (newState.isBackupQuestion) {
+      gameState.optionsVisible = false;
+      gameState.answerRevealed = false;
+      console.log('🆘 Entering backup question mode - resetting visibility');
+    } else {
+      console.log('↩️ Exiting backup question mode');
+    }
   }
   
   if (newState.backupQuestionId !== gameState.backupQuestionId) {
     gameState.backupQuestionId = newState.backupQuestionId;
     hasChanges = true;
-    console.log('🔄 Backup question ID:', newState.backupQuestionId);
+    console.log('🔄 Backup question ID updated:', newState.backupQuestionId);
+    
+    // Force question display update when backup question changes
+    if (gameState.isBackupQuestion && gameState.backupQuestionId) {
+      console.log('🆘 Loading backup question #' + gameState.backupQuestionId);
+      setTimeout(() => {
+        if (typeof updateQuestionDisplay === 'function') {
+          console.log('🔄 Forcing question display update for backup question');
+          updateQuestionDisplay();
+        }
+      }, 100);
+    }
   }
   
   // Check for changes

@@ -215,13 +215,31 @@ function resetAllScores() {
 
 function changeTeamName(teamId) {
   const team = gameState.teams.find(t => t.id === teamId);
-  if (team) {
-    const inputElement = document.getElementById(`team-name-${teamId}`);
-    if (inputElement) {
-      updateTeamName(teamId, inputElement.value);
-      console.log(`✏️ Team ${teamId} renamed to "${inputElement.value}"`);
-    }
+  if (!team) {
+    console.error(`❌ Team ${teamId} not found`);
+    return;
   }
+  
+  const inputElement = document.getElementById(`team-name-${teamId}`);
+  if (!inputElement) {
+    console.error(`❌ Input element for team ${teamId} not found`);
+    return;
+  }
+  
+  const newName = inputElement.value.trim();
+  if (!newName) {
+    console.warn(`⚠️ Empty name for team ${teamId}, skipping`);
+    inputElement.value = team.name; // Restore original name
+    return;
+  }
+  
+  if (newName === team.name) {
+    console.log(`ℹ️ Team ${teamId} name unchanged`);
+    return;
+  }
+  
+  console.log(`✏️ Changing team ${teamId} from "${team.name}" to "${newName}"`);
+  updateTeamName(teamId, newName);
 }
 
 // ============================================
@@ -398,7 +416,8 @@ function updateTeamsManager() {
           id="team-name-${team.id}"
           class="team-name-input" 
           value="${team.name}"
-          onchange="changeTeamName(${team.id})"
+          onblur="changeTeamName(${team.id})"
+          onkeypress="if(event.key==='Enter'){this.blur();}"
           placeholder="Team ${team.id} Name"
         />
         <div class="team-score-display">${team.score}</div>
