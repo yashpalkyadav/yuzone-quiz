@@ -1,0 +1,556 @@
+/* ============================================
+   🎨 YUZONE QUIZ - DARK THEME STYLING
+   ============================================ */
+
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --bg-accent: #252b4a;
+  --text-primary: #ffffff;
+  --text-secondary: #a8b2d1;
+  --accent-blue: #64ffda;
+  --accent-purple: #c792ea;
+  --accent-orange: #f78c6c;
+  --accent-green: #c3e88d;
+  --accent-red: #ff5370;
+  --border: #3d4770;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   � INSTRUCTIONS OVERLAY
+   ============================================ */
+
+.instructions-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 14, 39, 0.98);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.instructions-content {
+  max-width: 1200px;
+  padding: 40px 60px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--accent-orange);
+}
+
+.instructions-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.instructions-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.instructions-content button:hover {
+  background: #ff8c00;
+  transform: scale(1.05);
+  box-shadow: 0 5px 25px rgba(255, 107, 0, 0.5);
+}
+
+/* ============================================
+   �📺 PROJECTOR VIEW (index.html)
+   ============================================ */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.header h1 {
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.round-title {
+  font-size: 1.5rem;
+  color: var(--accent-orange);
+  margin-top: 10px;
+}
+
+/* Question Display */
+.question-section {
+  background: var(--bg-secondary);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+  margin-bottom: 30px;
+  min-height: 400px;
+}
+
+.question-number {
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 2rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: var(--text-primary);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.option {
+  background: var(--bg-accent);
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.option:hover {
+  border-color: var(--accent-blue);
+  transform: translateX(5px);
+}
+
+/* Timer Display */
+.timer-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.timer-display {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+  display: inline-block;
+  min-width: 300px;
+}
+
+.timer-label {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.timer-time {
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+.timer-time.pass-timer {
+  color: var(--accent-orange);
+}
+
+.timer-time.answer-timer {
+  color: var(--accent-red);
+}
+
+.timer-time.stopped {
+  color: var(--text-secondary);
+}
+
+.timer-time.paused {
+  color: var(--accent-orange);
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Scoreboard */
+.scoreboard {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.scoreboard h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--accent-green);
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.team-card {
+  background: var(--bg-accent);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.team-card:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-5px);
+}
+
+.team-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--accent-blue);
+}
+
+.team-score {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent-green);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================
+   🎮 ADMIN PANEL (admin.html)
+   ============================================ */
+
+.admin-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-header {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-header h1 {
+  color: var(--accent-purple);
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr 350px;
+  gap: 20px;
+}
+
+/* Control Panel */
+.control-panel {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.control-section {
+  margin-bottom: 30px;
+}
+
+.control-section h3 {
+  color: var(--accent-blue);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background: var(--bg-accent);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--accent-blue);
+  color: var(--bg-primary);
+  border-color: var(--accent-blue);
+  transform: scale(1.02);
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: var(--bg-primary);
+  border-color: var(--accent-blue);
+}
+
+.btn-success {
+  background: var(--accent-green);
+  color: var(--bg-primary);
+  border-color: var(--accent-green);
+}
+
+.btn-danger {
+  background: var(--accent-red);
+  color: white;
+  border-color: var(--accent-red);
+}
+
+.btn-warning {
+  background: var(--accent-orange);
+  color: var(--bg-primary);
+  border-color: var(--accent-orange);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Round/Question Selector */
+.round-selector, .question-selector {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-accent);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Question Preview */
+.question-preview {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.question-preview h2 {
+  color: var(--accent-purple);
+  margin-bottom: 20px;
+}
+
+.preview-content {
+  background: var(--bg-accent);
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 300px;
+}
+
+.preview-question {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.preview-options {
+  margin-top: 15px;
+}
+
+.preview-option {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: var(--bg-secondary);
+  border-radius: 5px;
+  border-left: 3px solid var(--border);
+}
+
+.preview-option.correct {
+  border-left-color: var(--accent-green);
+  background: rgba(195, 232, 141, 0.1);
+}
+
+/* Score Manager */
+.score-manager {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.score-manager h2 {
+  color: var(--accent-green);
+  margin-bottom: 20px;
+}
+
+.team-manager {
+  background: var(--bg-accent);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.team-name-input {
+  flex: 1;
+  padding: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.team-score-display {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--accent-green);
+  min-width: 60px;
+  text-align: right;
+}
+
+.score-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  align-items: center;
+}
+
+.btn-small {
+  padding: 8px;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Status Messages */
+.status-message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.status-online {
+  background: rgba(195, 232, 141, 0.2);
+  border: 2px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+.status-offline {
+  background: rgba(247, 140, 108, 0.2);
+  border: 2px solid var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.team-manager {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Sync Indicator */
+@keyframes syncPulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+#sync-indicator {
+  animation: syncPulse 0.6s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .admin-grid {
+    grid-template-columns: 250px 1fr 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .teams-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .question-text {
+    font-size: 1.5rem;
+  }
+  
+  .timer-time {
+    font-size: 3rem;
+  }
+}

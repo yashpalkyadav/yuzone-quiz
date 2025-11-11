@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Instructions</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a1a2e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .instructions-container {
+            max-width: 900px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .instructions-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .instructions-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .instructions-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .instruction-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .instruction-section h2 {
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instruction-section p {
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .instruction-section ul {
+            color: var(--text-primary);
+            line-height: 1.8;
+            padding-left: 25px;
+        }
+
+        .instruction-section li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .timer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .timer-box {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--accent-orange);
+        }
+
+        .timer-box .time {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+
+        .timer-box .label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .scoring-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        .scoring-table th,
+        .scoring-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .scoring-table th {
+            background: var(--bg-secondary);
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .scoring-table td {
+            color: var(--text-primary);
+        }
+
+        .close-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto 0;
+            padding: 15px 30px;
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions-container">
+        <div class="instructions-header">
+            <h1>🎯 Quiz Instructions</h1>
+            <p>Read carefully before starting the quiz!</p>
+        </div>
+
+        <div class="instruction-section">
+            <h2>📋 How to Play</h2>
+            <p>This is a team-based quiz competition. Each team will answer questions across multiple rounds.</p>
+            <ul>
+                <li>Questions will be displayed on the main screen</li>
+                <li>Options will appear when revealed by the quiz master</li>
+                <li>Teams discuss and submit their answers</li>
+                <li>Correct answers earn points for your team</li>
+            </ul>
+        </div>
+
+        <div class="instruction-section">
+            <h2>⏱️ Timer Rules</h2>
+            <p>Pay close attention to the timer! There are two types:</p>
+            
+            <div class="timer-info">
+                <div class="timer-box">
+                    <div class="time">30 sec</div>
+                    <div class="label">Discussion Time</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">
+                        After seeing the options, discuss with your team
+                    </p>
+                </div>
+                <div class="timer-box">
+                    <div class="time">15 sec</div>
+                    <div class="label">Answer Time</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">
+                        Final time to lock in your answer
+                    </p>
+                </div>
+            </div>
+
+            <p style="margin-top: 15px;">
+                🔔 <span class="highlight">Warning:</span> A beep sound will play at 5 seconds remaining<br>
+                🚨 <span class="highlight">Final Alert:</span> Multiple beeps when time is up
+            </p>
+        </div>
+
+        <div class="instruction-section">
+            <h2>🏆 Scoring System</h2>
+            <p>Points are awarded based on correct answers:</p>
+            
+            <table class="scoring-table">
+                <thead>
+                    <tr>
+                        <th>Round Type</th>
+                        <th>Points per Question</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Regular Rounds</td>
+                        <td><span class="highlight">+10 points</span></td>
+                    </tr>
+                    <tr>
+                        <td>Bonus Questions</td>
+                        <td><span class="highlight">+20 points</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 15px;">
+                ⚠️ <span class="highlight">Note:</span> No negative points for wrong answers
+            </p>
+        </div>
+
+        <div class="instruction-section">
+            <h2>📱 Fair Play Rules</h2>
+            <ul>
+                <li><strong>No mobile phones</strong> or electronic devices during the quiz</li>
+                <li><strong>No internet searches</strong> - rely on your team's knowledge</li>
+                <li><strong>Team discussion only</strong> - no help from other teams</li>
+                <li><strong>Respect the timer</strong> - answers after time's up won't count</li>
+                <li><strong>Quiz master's decision is final</strong> on all disputes</li>
+            </ul>
+        </div>
+
+        <div class="instruction-section">
+            <h2>✨ Tips for Success</h2>
+            <ul>
+                <li>Listen carefully to each question</li>
+                <li>Use your discussion time wisely</li>
+                <li>Don't rush - think before answering</li>
+                <li>Work as a team - everyone's input matters</li>
+                <li>Stay focused and have fun!</li>
+            </ul>
+        </div>
+
+        <button class="close-button" onclick="window.close()">
+            ✅ Got It! Let's Start
+        </button>
+    </div>
+
+    <script>
+        console.log("📖 Instructions page loaded");
+        
+        // Allow closing with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                window.close();
+            }
+        });
+    </script>
+</body>
+</html>

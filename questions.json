@@ -1,0 +1,568 @@
+{
+  "rounds": [
+    {
+      "id": 1,
+      "name": "Round 1",
+      "questions": [
+        {
+          "id": 1,
+          "question": "ISRO was founded in—",
+          "options": [
+            "A) 1962",
+            "B) 1965",
+            "C) 1969",
+            "D) 1972"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 2,
+          "question": "The Indian Space Science Data Centre (ISSDC) is located in—",
+          "options": [
+            "A) Hyderabad",
+            "B) Bengaluru",
+            "C) Sriharikota",
+            "D) Ahmedabad"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 3,
+          "question": "The mission director of Chandrayaan-3 was—",
+          "options": [
+            "A) S. Somanath",
+            "B) Ritu Karidhal",
+            "C) M. Vanitha",
+            "D) K. Sivan"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 4,
+          "question": "The rover onboard Chandrayaan-3 was called—",
+          "options": [
+            "A) Vikram",
+            "B) Pragyan",
+            "C) Anand",
+            "D) Sanjay"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 5,
+          "question": "The Aditya-L1 mission (2023) studies—",
+          "options": [
+            "A) Jupiter",
+            "B) Sun's corona",
+            "C) Mars",
+            "D) Lunar dust"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 6,
+          "question": "Dr. A. P. J. Abdul Kalam's SLV-III mission launched which satellite?",
+          "options": [
+            "A) Bhaskara-I",
+            "B) Rohini RS-1",
+            "C) Aryabhata",
+            "D) INSAT-1A"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 7,
+          "question": "Tessy Thomas is known as the \"Missile Woman of India\" for her work on—",
+          "options": [
+            "A) Agni series",
+            "B) Trishul",
+            "C) Prithvi",
+            "D) BrahMos"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 8,
+          "question": "The \"Shanti Swarup Bhatnagar Award\" is given for—",
+          "options": [
+            "A) Excellence in Science and Technology",
+            "B) Literature",
+            "C) Defence",
+            "D) Agriculture"
+          ],
+          "correctAnswer": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Round 2",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Rakesh Sharma, the first Indian in space, flew aboard—",
+          "options": [
+            "A) Soyuz T-11",
+            "B) Apollo 11",
+            "C) PSLV-C11",
+            "D) GSLV Mk III"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 2,
+          "question": "C. K. N. Patel, an Indian-American physicist, invented—",
+          "options": [
+            "A) CO₂ laser (gas laser technology)",
+            "B) Microwaves",
+            "C) Laser diode array",
+            "D) X-ray diffractometer"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 3,
+          "question": "Salim Ali is renowned for pioneering work in—",
+          "options": [
+            "A) Zoology",
+            "B) Ornithology",
+            "C) Botany",
+            "D) Entomology"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 4,
+          "question": "P. C. Ray founded India's first pharmaceutical enterprise named—",
+          "options": [
+            "A) Bengal Chemical & Pharmaceutical Works",
+            "B) Indian Drug Research Centre",
+            "C) Calcutta Chemical Labs",
+            "D) Swadeshi Pharma Trust"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 5,
+          "question": "Khorana synthesized the first—",
+          "options": [
+            "A) Artificial gene",
+            "B) RNA molecule",
+            "C) DNA replication enzyme",
+            "D) Protein chain"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 6,
+          "question": "Har Gobind Khorana's Nobel Prize (1968) was shared with—",
+          "options": [
+            "A) Robert Holleman & Francis Crick",
+            "B) Marshall Nirenberg & Robert Holley",
+            "C) James Watson & Maurice Wilkins",
+            "D) Paul Berg & Sydney Brenner"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 7,
+          "question": "PARAM 8000 was developed by—",
+          "options": [
+            "A) C-DAC under Vijay Bhatkar",
+            "B) DRDO under A. P. J. Kalam",
+            "C) BARC under Raja Ramanna",
+            "D) ISRO under K. Kasturirangan"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 8,
+          "question": "S. N. Bose's derivation of Planck's law corrected a state-counting error and led Einstein to—",
+          "options": [
+            "A) Introduce massless bosons",
+            "B) Extend it to massive particles (Bose–Einstein statistics)",
+            "C) Reject quantum mechanics",
+            "D) Derive Fermi law"
+          ],
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Round 3",
+      "questions": [
+        {
+          "id": 1,
+          "question": "S. N. Bose sent his quantum paper to Einstein in—",
+          "options": [
+            "A) 1923",
+            "B) 1924",
+            "C) 1925",
+            "D) 1922"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 2,
+          "question": "Bose–Einstein statistics fails for—",
+          "options": [
+            "A) Photons",
+            "B) Fermions",
+            "C) Phonons",
+            "D) Bosons at low temperature"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 3,
+          "question": "Govind Swarup's GMRT primarily operates in —",
+          "options": [
+            "A) Meter–decameter radio wavelengths",
+            "B) Infrared range",
+            "C) Microwave band",
+            "D) Optical frequencies"
+          ],
+          "correctAnswer": "A"
+        },
+        {
+          "id": 4,
+          "question": "\"Vyommitra,\" unveiled by ISRO in 2020, is—",
+          "options": [
+            "A) An AI model for weather prediction",
+            "B) A humanoid robot for space missions",
+            "C) India's first Mars orbiter",
+            "D) A lunar rover"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 5,
+          "question": "The Integrated Guided Missile Development Programme (IGMDP) was initiated by—",
+          "options": [
+            "A) Raja Ramanna",
+            "B) A. P. J. Abdul Kalam",
+            "C) Homi Sethna",
+            "D) K. Kasturirangan"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 6,
+          "question": "BARC was originally founded as—",
+          "options": [
+            "A) Atomic Energy Research Centre",
+            "B) Atomic Physics Institute",
+            "C) Tata Institute of Fundamental Research",
+            "D) Atomic Energy Establishment, Trombay"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 7,
+          "question": "The Indian nuclear reactor Apsara used—",
+          "options": [
+            "A) Thorium fuel",
+            "B) Heavy-water moderator",
+            "C) Enriched uranium fuel",
+            "D) Graphite control rods"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 8,
+          "question": "Khorana's synthetic-gene experiment proved that—",
+          "options": [
+            "A) RNA is self-replicating",
+            "B) Genes can be chemically synthesized and expressed",
+            "C) DNA polymerase was unnecessary",
+            "D) Amino acids self-assemble"
+          ],
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Round 4",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Vainu Bappu discovered which astrophysical relationship known as the Wilson–Bappu effect?",
+          "options": [
+            "A) Between stellar temperature and metallicity",
+            "B) Between a star's luminosity and Ca II K-line width",
+            "C) Between solar flares and magnetic fields",
+            "D) Between star mass and luminosity"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 2,
+          "question": "E. C. G. Sudarshan contributed to quantum optics by formulating—",
+          "options": [
+            "A) Photon lattice theory",
+            "B) Quantum Hall effect",
+            "C) Sudarshan–Glauert coherent-state theory",
+            "D) Dirac spinor model"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 3,
+          "question": "Yash Pal is best known for—",
+          "options": [
+            "A) Designing Chandrayaan-1",
+            "B) Discovering neutrino oscillations",
+            "C) Cosmic-ray research and science education reforms",
+            "D) Developing Raman–Yash spectroscopy"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 4,
+          "question": "Jayant Vishnu Narlikar collaborated with Fred Hoyle to propose—",
+          "options": [
+            "A) Big Bang nucleosynthesis",
+            "B) Quantum expansion theory",
+            "C) Chaotic inflation model",
+            "D) Steady State theory of the universe"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 5,
+          "question": "Meghnad Saha's Ionization Equation helps explain —",
+          "options": [
+            "A) Sound waves",
+            "B) Stellar temperature & spectra",
+            "C) Nuclear reactions",
+            "D) Light diffraction"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 6,
+          "question": "Rajeshwari Chatterjee pioneered microwave research in India, specializing in—",
+          "options": [
+            "A) Ion beam deposition",
+            "B) Wave optics",
+            "C) Radar antenna design",
+            "D) Thermionic emission"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 7,
+          "question": "Janaki Ammal, a botanist, worked on—",
+          "options": [
+            "A) Bt cotton hybridization",
+            "B) Seedless banana varieties",
+            "C) Genetic mapping of rice",
+            "D) Chromosome doubling in sugarcane hybrids"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 8,
+          "question": "Anna Mani contributed to—",
+          "options": [
+            "A) Particle accelerators",
+            "B) Magnetic field sensors",
+            "C) Thermodynamics of gases",
+            "D) Solar radiation and atmospheric instrumentation"
+          ],
+          "correctAnswer": "D"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Round 5",
+      "questions": [
+        {
+          "id": 1,
+          "question": "G. N. Ramachandran developed a molecular model that plots—",
+          "options": [
+            "A) Bond vibration energies",
+            "B) Torsion angles phi (ϕ) and psi (ψ) of amino acids",
+            "C) Peptide hydrogen bonds",
+            "D) Electron density maps"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 2,
+          "question": "Sisir Kumar Mitra conducted pioneering studies in—",
+          "options": [
+            "A) Neutron cross-sections",
+            "B) Atmospheric scattering",
+            "C) Ionospheric physics and radio propagation",
+            "D) Quantum field oscillations"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 3,
+          "question": "Sivaraj Ramaseshan made major contributions to—",
+          "options": [
+            "A) Thermionic emission",
+            "B) Spintronics",
+            "C) X-ray crystallography and diffraction",
+            "D) Superconductivity"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 4,
+          "question": "Chanchal Kumar Majumdar co-developed the Majumdar–Ghosh model explaining—",
+          "options": [
+            "A) Ion drift in semiconductors",
+            "B) Quantum magnetism and spin chains",
+            "C) Bose–Hubbard lattice",
+            "D) Polymer conductivity"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 5,
+          "question": "Obaid Siddiqi, founder of TIFR's Molecular Biology Unit, discovered—",
+          "options": [
+            "A) RNA interference",
+            "B) Cell wall biogenesis in bacteria",
+            "C) Mechanism of DNA methylation",
+            "D) Neurogenetic basis of smell in Drosophila"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 6,
+          "question": "Asima Chatterjee made path-breaking contributions in—",
+          "options": [
+            "A) Spectroscopy",
+            "B) Natural product and alkaloid chemistry",
+            "C) Thermodynamics",
+            "D) Metallurgy"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 7,
+          "question": "Darshan Ranganathan is best known for pioneering—",
+          "options": [
+            "A) Cellular photoreceptors",
+            "B) DNA sequencing algorithms",
+            "C) Molecular self-assembly in peptides",
+            "D) Biochemical catalysis kinetics"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 8,
+          "question": "Raghunath Anant Mashelkar's main contribution lies in—",
+          "options": [
+            "A) Computational biology",
+            "B) Quantum chemistry",
+            "C) Polymer science and innovation policy",
+            "D) Rocket propulsion"
+          ],
+          "correctAnswer": "C"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Round 6",
+      "questions": [
+        {
+          "id": 1,
+          "question": "E. C. G. Sudarshan was overlooked for a Nobel Prize despite introducing which fundamental particle concept?",
+          "options": [
+            "A) Mesons",
+            "B) Positrons",
+            "C) Neutrinos",
+            "D) Tachyons (hypothetical faster-than-light particles)"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 2,
+          "question": "Bimal Kumar Bachhawat pioneered Indian research in—",
+          "options": [
+            "A) Viral immunology",
+            "B) Protein folding thermodynamics",
+            "C) Neurochemistry and lysosomal disorders",
+            "D) Quantum biochemistry"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 3,
+          "question": "Manju Sharma contributed significantly to—",
+          "options": [
+            "A) Quantum optics",
+            "B) Biochemical drug design",
+            "C) Plant tissue culture and science-policy interface",
+            "D) Nanomaterials"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 4,
+          "question": "Darshan Ranganathan's theoretical models inspired work in—",
+          "options": [
+            "A) Computational fluid dynamics",
+            "B) Prebiotic chemistry and origin of life",
+            "C) Optical communication",
+            "D) Crystallographic symmetry"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 5,
+          "question": "Eknath Vasant Chitnis played a key role in —",
+          "options": [
+            "A) Green Revolution",
+            "B) Pokhran-I test",
+            "C) Satellite Instructional Television Experiment (SITE)",
+            "D) Operation Flood"
+          ],
+          "correctAnswer": "C"
+        },
+        {
+          "id": 6,
+          "question": "Govind Swarup built which world-class facility?",
+          "options": [
+            "A) Himalayan Optical Array",
+            "B) Ooty Radio Telescope and GMRT",
+            "C) Indian Neutrino Observatory",
+            "D) ISRO deep-space antenna"
+          ],
+          "correctAnswer": "B"
+        },
+        {
+          "id": 7,
+          "question": "Roddam Narasimha is known for his contributions to—",
+          "options": [
+            "A) Statistical mechanics",
+            "B) Semiconductor laser design",
+            "C) Nuclear scattering",
+            "D) Fluid dynamics and aerospace turbulence"
+          ],
+          "correctAnswer": "D"
+        },
+        {
+          "id": 8,
+          "question": "Prafulla Chandra Ray is called the father of Indian chemistry for —",
+          "options": [
+            "A) Plasma chemistry research",
+            "B) Developing India's nuclear program",
+            "C) Work on mercurous nitrite and chemical education",
+            "D) Inventing new pesticides"
+          ],
+          "correctAnswer": "C"
+        }
+      ]
+    }
+  ]
+}

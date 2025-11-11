@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUZONE QUIZ - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Admin Container -->
+    <div class="admin-container">
+        
+        <!-- Header -->
+        <div class="admin-header">
+            <h1>🎮 YUZONE QUIZ - ADMIN CONTROL PANEL 🎮</h1>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                <div id="connection-status" class="status-message status-offline">
+                    🔄 Checking connection...
+                </div>
+                <div id="sync-indicator" style="display: none; padding: 5px 15px; background: var(--accent-blue); color: var(--bg-primary); border-radius: 5px; font-weight: bold; animation: pulse 1s infinite;">
+                    ⚡ SYNCING...
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Admin Grid -->
+        <div class="admin-grid">
+            
+            <!-- Left Column: Controls -->
+            <div class="control-panel">
+                
+                <!-- Round & Question Selection -->
+                <div class="control-section">
+                    <h3>📚 Question Control</h3>
+                    <select id="round-selector" class="round-selector">
+                        <option value="1">Round 1</option>
+                        <option value="2">Round 2</option>
+                        <option value="3">Round 3</option>
+                        <option value="4">Round 4</option>
+                        <option value="5">Round 5</option>
+                        <option value="6">Round 6</option>
+                    </select>
+                    
+                    <select id="question-selector" class="question-selector">
+                        <option value="1">Question 1</option>
+                        <option value="2">Question 2</option>
+                        <option value="3">Question 3</option>
+                    </select>
+                    
+                    <button class="btn btn-primary" onclick="loadSelectedQuestion()">
+                        🔄 Load Question
+                    </button>
+                    
+                    <button class="btn" onclick="nextQuestion()">
+                        ➡️ Next Question
+                    </button>
+                    
+                    <button class="btn" onclick="previousQuestion()">
+                        ⬅️ Previous Question
+                    </button>
+                    
+                    <hr style="margin: 15px 0; border-color: var(--border);">
+                    
+                    <button class="btn btn-warning" id="show-options-btn" onclick="toggleOptions()">
+                        👁️ Show Options
+                    </button>
+                    
+                    <button class="btn btn-success" id="reveal-answer-btn" onclick="revealAnswer()" disabled>
+                        ✅ Show Correct Answer
+                    </button>
+                </div>
+                
+                <!-- Timer Controls -->
+                <div class="control-section">
+                    <h3>⏱️ Timer Control</h3>
+                    
+                    <button class="btn btn-warning" onclick="startTimer('pass')">
+                        ▶️ Start 30s Timer
+                    </button>
+                    
+                    <button class="btn btn-danger" onclick="startTimer('answer')">
+                        ▶️ Start 15s Timer
+                    </button>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        <button class="btn" id="pause-resume-btn" onclick="togglePauseResume()" disabled>
+                            ⏸️ Pause
+                        </button>
+                        
+                        <button class="btn" onclick="stopTimer()">
+                            ⏹️ Stop
+                        </button>
+                    </div>
+                    
+                    <button class="btn" onclick="resetTimer()" style="margin-top: 10px;">
+                        🔄 Reset Timer
+                    </button>
+                    
+                    <div style="margin-top: 15px; text-align: center;">
+                        <div style="color: var(--text-secondary); margin-bottom: 5px;">Time Left:</div>
+                        <div id="admin-timer-display" style="font-size: 2rem; font-weight: bold; color: var(--accent-orange);">0:30</div>
+                    </div>
+                    
+                    <div id="timer-status" style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+                        Timer stopped
+                    </div>
+                </div>
+                
+                <!-- Backup Questions -->
+                <div class="control-section">
+                    <h3>🆘 Backup Questions</h3>
+                    
+                    <div id="backup-status" style="margin-bottom: 10px; padding: 8px; background: var(--bg-secondary); border-radius: 5px; text-align: center; font-size: 0.9rem;">
+                        <span id="backup-indicator">📋 Normal Question Mode</span>
+                    </div>
+                    
+                    <select id="backup-question-selector" class="question-selector" style="margin-bottom: 10px;">
+                        <option value="">-- Select Backup Question --</option>
+                    </select>
+                    
+                    <button class="btn btn-warning" onclick="loadSelectedBackupQuestion()">
+                        🔄 Load Backup Question
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="returnToNormalQuestion(); updateAdminUI();" style="margin-top: 10px;">
+                        ↩️ Return to Normal Question
+                    </button>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="control-section">
+                    <h3>⚡ Quick Actions</h3>
+                    
+                    <button class="btn btn-danger" onclick="resetAllScores()">
+                        🗑️ Reset All Scores
+                    </button>
+                    
+                    <button class="btn" onclick="clearLocalStorage(); location.reload();">
+                        🔄 Clear Cache & Reload
+                    </button>
+                    
+                    <button class="btn" onclick="window.open('index.html', '_blank')">
+                        🖥️ Open Projector View
+                    </button>
+                </div>
+                
+            </div>
+            
+            <!-- Middle Column: Question Preview -->
+            <div class="question-preview">
+                <h2>📝 Current Question Preview</h2>
+                
+                <div class="preview-content">
+                    <div style="color: var(--accent-blue); margin-bottom: 15px; font-size: 1.1rem;">
+                        <span id="preview-round-name">Round 1: General Knowledge</span> - 
+                        <span id="preview-question-number">Question 1</span>
+                    </div>
+                    
+                    <div id="preview-question-text" class="preview-question">
+                        Loading question...
+                    </div>
+                    
+                    <div id="preview-options-container" class="preview-options">
+                        <!-- Options will be loaded here -->
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: var(--bg-secondary); border-radius: 8px; border-left: 4px solid var(--accent-green);">
+                        <strong style="color: var(--accent-green);">✅ Correct Answer:</strong>
+                        <span id="preview-correct-answer" style="margin-left: 10px; font-size: 1.2rem;">-</span>
+                    </div>
+                    
+                    <!-- Quiz Settings -->
+                    <div style="margin-top: 20px; padding: 15px; background: var(--bg-secondary); border-radius: 8px;">
+                        <label for="quiz-title-input" style="display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem; font-weight: bold;">
+                            ⚙️ Quiz Title:
+                        </label>
+                        <input 
+                            type="text" 
+                            id="quiz-title-input" 
+                            placeholder="Enter quiz title..." 
+                            style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg-primary); color: var(--text-primary); margin-bottom: 10px; font-size: 1rem;"
+                        />
+                        <button class="btn btn-primary" onclick="updateQuizTitleFromAdmin()" style="width: 100%; margin: 0;">
+                            💾 Update Quiz Title
+                        </button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                        <button class="btn btn-primary" onclick="openInstructions()" style="margin: 0;">
+                            📖 Show Instructions
+                        </button>
+                        <button class="btn" onclick="closeInstructions()" style="margin: 0;">
+                            ❌ Hide Instructions
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Score Manager -->
+            <div class="score-manager">
+                <h2>🏆 Score Manager</h2>
+                
+                <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+                    <button class="btn btn-success" onclick="addTeam()" style="flex: 1; margin: 0;">
+                        ➕ Add Team
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteLastTeam()" style="flex: 1; margin: 0;">
+                        ➖ Remove Last
+                    </button>
+                </div>
+                
+                <div id="teams-manager-container">
+                    <!-- Teams will be dynamically loaded here -->
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Scripts -->
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+    
+    <script>
+        console.log("🎮 Admin panel loaded");
+        
+        // Update connection status
+        function updateConnectionStatus() {
+            const statusDiv = document.getElementById('connection-status');
+            if (isFirebaseEnabled) {
+                statusDiv.className = 'status-message status-online';
+                statusDiv.innerHTML = '🟢 LIVE SYNC - Connected to Firebase';
+            } else {
+                statusDiv.className = 'status-message status-offline';
+                statusDiv.innerHTML = '🟡 LOCAL MODE - Single Device Only';
+            }
+        }
+        
+        // Show sync indicator temporarily
+        function showSyncIndicator() {
+            const indicator = document.getElementById('sync-indicator');
+            if (indicator && isFirebaseEnabled) {
+                indicator.style.display = 'block';
+                setTimeout(() => {
+                    indicator.style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        // Override sync functions to show indicator
+        const originalSyncToFirebase = syncToFirebase;
+        syncToFirebase = function(data) {
+            showSyncIndicator();
+            return originalSyncToFirebase(data);
+        };
+        
+        const originalQuickSync = quickSync;
+        quickSync = function(path, data) {
+            showSyncIndicator();
+            return originalQuickSync(path, data);
+        };
+        
+        // Initial status update
+        setTimeout(updateConnectionStatus, 500);
+        
+        // Populate backup questions after page loads
+        setTimeout(() => {
+            if (typeof populateBackupQuestionsList === 'function') {
+                populateBackupQuestionsList();
+                console.log('📋 Backup questions list populated');
+            }
+        }, 1000);
+        
+        // Update timer display and controls in admin panel
+        let lastTimerState = null;
+        setInterval(() => {
+            const adminTimerDisplay = document.getElementById('admin-timer-display');
+            if (adminTimerDisplay) {
+                const minutes = Math.floor(gameState.timer.timeLeft / 60);
+                const seconds = gameState.timer.timeLeft % 60;
+                adminTimerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (gameState.timer.isRunning) {
+                    adminTimerDisplay.style.color = gameState.timer.type === 'pass' ? 
+                        'var(--accent-orange)' : 'var(--accent-red)';
+                } else {
+                    adminTimerDisplay.style.color = 'var(--text-secondary)';
+                }
+            }
+            
+            // Only update control buttons when timer state actually changes
+            const currentTimerState = `${gameState.timer.isRunning}-${gameState.timer.isPaused}`;
+            if (currentTimerState !== lastTimerState) {
+                updateControlButtons();
+                lastTimerState = currentTimerState;
+            }
+        }, 100);
+    </script>
+</body>
+</html>

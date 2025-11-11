@@ -1,0 +1,251 @@
+{
+  "backupQuestions": [
+    {
+      "id": 1,
+      "question": "Yellapragada Subbarow discovered —",
+      "options": [
+        "A) Tetracycline",
+        "B) Folic acid",
+        "C) Streptomycin",
+        "D) Insulin"
+      ],
+      "correctAnswer": "B",
+      "category": "Indian Science",
+      "notes": "Biochemistry discovery backup question"
+    },
+    {
+      "id": 2,
+      "question": "Homi Sethna played a key role in India's first nuclear test as —",
+      "options": [
+        "A) Mission director",
+        "B) Reactor designer and scientific coordinator",
+        "C) Missile engineer",
+        "D) Atomic spectroscopist"
+      ],
+      "correctAnswer": "B",
+      "category": "Nuclear Science",
+      "notes": "Historical nuclear program backup question"
+    },
+    {
+      "id": 3,
+      "question": "Panchanan Maheshwari pioneered —",
+      "options": [
+        "A) Photosynthesis research",
+        "B) Plant embryology and tissue culture",
+        "C) Plant physiology",
+        "D) Soil bacteriology"
+      ],
+      "correctAnswer": "B",
+      "category": "Botany",
+      "notes": "Plant biology backup question"
+    },
+    {
+      "id": 4,
+      "question": "Ruchi Ram Sahni was India's first major —",
+      "options": [
+        "A) Marine geologist",
+        "B) Science popularizer and spectroscopist",
+        "C) Biotechnologist",
+        "D) Meteorologist"
+      ],
+      "correctAnswer": "B",
+      "category": "Science History",
+      "notes": "Science education backup question"
+    },
+    {
+      "id": 5,
+      "question": "Yellapragada Subbarow's biochemical research led to —",
+      "options": [
+        "A) Chloroquine",
+        "B) Methotrexate (cancer drug)",
+        "C) Tetracycline",
+        "D) Penicillin"
+      ],
+      "correctAnswer": "B",
+      "category": "Biochemistry",
+      "notes": "Medical chemistry backup question"
+    },
+    {
+      "id": 6,
+      "question": "Panchanan Maheshwari revolutionized botany by developing —",
+      "options": [
+        "A) Seed-hardening process",
+        "B) In-vitro fertilization technique for angiosperms",
+        "C) Phototropic culture",
+        "D) Mutation breeding"
+      ],
+      "correctAnswer": "B",
+      "category": "Botany",
+      "notes": "Plant tissue culture backup question"
+    },
+    {
+      "id": 7,
+      "question": "C. R. Rao introduced the famous —",
+      "options": [
+        "A) Boltzmann entropy law",
+        "B) Cramér–Rao inequality for statistical efficiency",
+        "C) Maxwell approximation",
+        "D) Heisenberg matrix"
+      ],
+      "correctAnswer": "B",
+      "category": "Statistics",
+      "notes": "Mathematical statistics backup question"
+    },
+    {
+      "id": 8,
+      "question": "Roddam Narasimha advanced Indian —",
+      "options": [
+        "A) Nuclear safety systems",
+        "B) Aerospace and fluid dynamics research",
+        "C) Data encryption",
+        "D) Optical fiber design"
+      ],
+      "correctAnswer": "B",
+      "category": "Aerospace",
+      "notes": "Fluid dynamics backup question"
+    },
+    {
+      "id": 9,
+      "question": "G. N. Ramachandran created the Ramachandran Plot to define —",
+      "options": [
+        "A) Protein folding energy",
+        "B) Permissible torsion angles (ϕ, ψ) in proteins",
+        "C) Amino-acid charges",
+        "D) Molecular density"
+      ],
+      "correctAnswer": "B",
+      "category": "Molecular Biology",
+      "notes": "Protein structure backup question"
+    },
+    {
+      "id": 10,
+      "question": "Obaid Siddiqi proved —",
+      "options": [
+        "A) Protein folding is reversible",
+        "B) Genes influence behavior through neurogenetic control",
+        "C) Radiation mutates chromosomes",
+        "D) All flies lack smell genes"
+      ],
+      "correctAnswer": "B",
+      "category": "Neuroscience",
+      "notes": "Molecular biology backup question"
+    },
+    {
+      "id": 11,
+      "question": "Eknath Vasant Chitnis coordinated India's SITE (1975) experiment testing —",
+      "options": [
+        "A) Weather satellite tracking",
+        "B) Satellite-based education broadcasting",
+        "C) Seismic communication",
+        "D) GPS signal trials"
+      ],
+      "correctAnswer": "B",
+      "category": "Space Technology",
+      "notes": "Satellite communication backup question"
+    },
+    {
+      "id": 12,
+      "question": "E. C. G. Sudarshan's V–A theory established —",
+      "options": [
+        "A) Electroweak unification",
+        "B) Parity violation in weak interactions",
+        "C) Gamma decay selection rules",
+        "D) Gravitational collapse"
+      ],
+      "correctAnswer": "B",
+      "category": "Physics",
+      "notes": "Particle physics backup question"
+    },
+    {
+      "id": 13,
+      "question": "Jayant Narlikar's steady-state cosmology proposed —",
+      "options": [
+        "A) Black-hole evaporation",
+        "B) Continuous matter creation in an expanding universe",
+        "C) Pulsar neutron fission",
+        "D) Dark-energy pulses"
+      ],
+      "correctAnswer": "B",
+      "category": "Cosmology",
+      "notes": "Theoretical cosmology backup question"
+    },
+    {
+      "id": 14,
+      "question": "Homi J. Bhabha's cascade theory explains —",
+      "options": [
+        "A) Solar neutrino deficit",
+        "B) Atmospheric particle showers from cosmic rays",
+        "C) Magnetic storm ionization",
+        "D) Gamma-ray lensing"
+      ],
+      "correctAnswer": "B",
+      "category": "Physics",
+      "notes": "Cosmic ray physics backup question"
+    },
+    {
+      "id": 15,
+      "question": "Govind Swarup's GMRT primarily operates in —",
+      "options": [
+        "A) Infrared range",
+        "B) Meter–decameter radio wavelengths",
+        "C) Microwave band",
+        "D) Optical frequencies"
+      ],
+      "correctAnswer": "B",
+      "category": "Astronomy",
+      "notes": "Radio astronomy backup question"
+    },
+    {
+      "id": 16,
+      "question": "Raja Ramanna's Pokhran-I (1974) used —",
+      "options": [
+        "A) Uranium-233",
+        "B) Plutonium-239 as fissile material",
+        "C) Thorium-232",
+        "D) Uranium-238"
+      ],
+      "correctAnswer": "B",
+      "category": "Nuclear Physics",
+      "notes": "Nuclear test backup question"
+    },
+    {
+      "id": 17,
+      "question": "C. R. Rao's Rao–Blackwell Theorem enhances —",
+      "options": [
+        "A) Energy conversion efficiency",
+        "B) Estimator efficiency via conditional expectation",
+        "C) Quantum transition probabilities",
+        "D) Spectral resolution"
+      ],
+      "correctAnswer": "B",
+      "category": "Statistics",
+      "notes": "Statistical theory backup question"
+    },
+    {
+      "id": 18,
+      "question": "Prafulla Chandra Ray's nitrite studies revealed —",
+      "options": [
+        "A) Covalent bond energy",
+        "B) Mercurous nitrite stability and intermediate reactions",
+        "C) Molecular resonance",
+        "D) Acid–base neutralization"
+      ],
+      "correctAnswer": "B",
+      "category": "Chemistry",
+      "notes": "Chemical reactions backup question"
+    },
+    {
+      "id": 19,
+      "question": "Vainu Bappu's Kavalur Observatory was notable because —",
+      "options": [
+        "A) It first used radio spectrometry",
+        "B) It housed Asia's largest optical telescope of its era",
+        "C) It tracked lunar orbiters",
+        "D) It discovered pulsars"
+      ],
+      "correctAnswer": "B",
+      "category": "Astronomy",
+      "notes": "Observatory history backup question"
+    }
+  ]
+}
