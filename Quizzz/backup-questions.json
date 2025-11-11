@@ -2,12 +2,12 @@
   "backupQuestions": [
     {
       "id": 1,
-      "question": "Yellapragada Subbarow discovered —",
+      "question": "John Clarke. Who won Nobel Prize in physics in the year 2025 belongs to which country?",
       "options": [
-        "A) Tetracycline",
-        "B) Folic acid",
-        "C) Streptomycin",
-        "D) Insulin"
+        "A)",
+        "B)",
+        "C)",
+        "D) "
       ],
       "correctAnswer": "B",
       "category": "Indian Science",
@@ -15,12 +15,12 @@
     },
     {
       "id": 2,
-      "question": "Homi Sethna played a key role in India's first nuclear test as —",
+      "question": "The blue colour of sea water was the first phenomenal discovery of which indian scientist?",
       "options": [
-        "A) Mission director",
-        "B) Reactor designer and scientific coordinator",
-        "C) Missile engineer",
-        "D) Atomic spectroscopist"
+        "A) ",
+        "B) ",
+        "C) Sir C.V Raman",
+        "D) "
       ],
       "correctAnswer": "B",
       "category": "Nuclear Science",
@@ -28,12 +28,12 @@
     },
     {
       "id": 3,
-      "question": "Panchanan Maheshwari pioneered —",
+      "question": "Who is Considered The father of Bengali Science fiction?",
       "options": [
-        "A) Photosynthesis research",
-        "B) Plant embryology and tissue culture",
-        "C) Plant physiology",
-        "D) Soil bacteriology"
+        "A) Sir J.C. Bose",
+        "B) ",
+        "C)",
+        "D) "
       ],
       "correctAnswer": "B",
       "category": "Botany",
@@ -41,7 +41,7 @@
     },
     {
       "id": 4,
-      "question": "Ruchi Ram Sahni was India's first major —",
+      "question": "Name ",
       "options": [
         "A) Marine geologist",
         "B) Science popularizer and spectroscopist",
@@ -248,4 +248,5 @@
       "notes": "Observatory history backup question"
     }
   ]
+
 }
