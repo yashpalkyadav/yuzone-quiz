@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUZONE QUIZ - Projector View</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Full screen optimized layout */
+        body {
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .projector-container {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100vh;
+            padding: 15px;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+        
+        /* Timer fixed to top-right corner */
+        .timer-corner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px var(--shadow);
+            border: 3px solid var(--border);
+            min-width: 180px;
+            text-align: center;
+        }
+        
+        .timer-corner .timer-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .timer-corner .timer-time {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Compact header */
+        .projector-header {
+            text-align: center;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border-radius: 12px;
+            box-shadow: 0 6px 20px var(--shadow);
+            border: 2px solid var(--border);
+        }
+        
+        .projector-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 6px 0;
+            line-height: 1.2;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .projector-header .round-title {
+            font-size: 1.2rem;
+            color: var(--accent-orange);
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        /* Responsive header adjustments */
+        @media (max-width: 1400px) {
+            .projector-header {
+                padding: 6px 12px;
+            }
+            .projector-header h1 {
+                font-size: 1.4rem;
+                margin-bottom: 3px;
+            }
+            .projector-header .round-title {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .projector-header {
+                padding: 5px 10px;
+            }
+            .projector-header h1 {
+                font-size: 1.2rem;
+                margin-bottom: 2px;
+            }
+            .projector-header .round-title {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projector-header {
+                padding: 4px 8px;
+            }
+            .projector-header h1 {
+                font-size: 1rem;
+                margin-bottom: 2px;
+            }
+            .projector-header .round-title {
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Question section - fills available space */
+        .projector-question {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            padding: 40px 50px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--border);
+        }
+        
+        .projector-question .question-number {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .projector-question .question-text {
+            font-size: 2.6rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .projector-question .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .projector-question .option {
+            background: var(--bg-accent);
+            padding: 22px 30px;
+            border-radius: 12px;
+            font-size: 1.6rem;
+            border: 3px solid var(--border);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .projector-question .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Compact scoreboard */
+        .projector-scoreboard {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px var(--shadow);
+            max-height: 150px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+        }
+        
+        .projector-scoreboard h2 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 0 0 12px 0;
+            color: var(--accent-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .projector-scoreboard .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+        }
+        
+        .projector-scoreboard .team-card {
+            background: var(--bg-accent);
+            padding: 10px 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .projector-scoreboard .team-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .projector-scoreboard .team-name {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .projector-scoreboard .team-score {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            .projector-scoreboard {
+                padding: 10px 12px;
+                max-height: 120px;
+            }
+            .projector-scoreboard h2 {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            .projector-scoreboard .team-card {
+                padding: 6px 4px;
+            }
+            .projector-scoreboard .team-name {
+                font-size: 0.7rem;
+            }
+            .projector-scoreboard .team-score {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 1400px) {
+            .projector-scoreboard .teams-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .projector-scoreboard {
+                max-height: 110px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .projector-question .options {
+                grid-template-columns: 1fr;
+            }
+            .projector-scoreboard {
+                padding: 8px 10px;
+                max-height: 100px;
+            }
+            .projector-scoreboard h2 {
+                font-size: 0.9rem;
+                margin-bottom: 5px;
+            }
+            .projector-scoreboard .teams-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+            .projector-scoreboard .team-card {
+                padding: 5px 3px;
+            }
+            .projector-scoreboard .team-name {
+                font-size: 0.65rem;
+            }
+            .projector-scoreboard .team-score {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projector-scoreboard {
+                padding: 6px 8px;
+                max-height: 90px;
+            }
+            .projector-scoreboard h2 {
+                font-size: 0.8rem;
+                margin-bottom: 4px;
+            }
+            .projector-scoreboard .teams-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            .projector-scoreboard .team-card {
+                padding: 4px 2px;
+            }
+            .projector-scoreboard .team-name {
+                font-size: 0.6rem;
+            }
+            .projector-scoreboard .team-score {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer in Top-Right Corner -->
+    <div class="timer-corner" style="display: none;">
+        <div id="timer-label" class="timer-label">Pass Timer</div>
+        <div id="timer-time" class="timer-time stopped">0:30</div>
+    </div>
+    
+    <!-- Instructions Overlay -->
+    <div id="instructions-overlay" class="instructions-overlay" style="display: flex;">
+        <div class="instructions-content">
+            <h1 style="text-align: center; color: var(--accent-orange); font-size: 2.5rem; margin-bottom: 20px;">
+                📖 QUIZ INSTRUCTIONS
+            </h1>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 20px;">
+                <div>
+                    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">⏱️ Timer Rules</h3>
+                    <p><strong>30 seconds</strong> – Main team question time</p>
+                    <p><strong>15 seconds</strong> – Bonus (passed) question time</p>
+                    <p>🔔 Beep sound at 5 seconds before time ends</p>
+                    <p>🚨 Long alarm when time is up</p>
+                    <p style="margin-top: 8px;"><strong>⏱️ Teams must answer before the timer ends — respect the timer!</strong></p>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">🏆 Scoring System</h3>
+                    <p><strong>+2 points</strong> → For the team answering their own question correctly</p>
+                    <p><strong>+1 point</strong> → Bonus for the team answering a passed question correctly</p>
+                    <p><strong>0 points</strong> → If no team answers correctly (question cancelled)</p>
+                    <p style="margin-top: 8px;">No negative marking for wrong answers</p>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 20px;">
+                <div>
+                    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">🧠 Round Format</h3>
+                    <p><strong>Total Rounds:</strong> 6</p>
+                    <p><strong>Questions per Round:</strong> 8</p>
+                    <p>One question per team each round</p>
+                    <p>Unanswered questions pass to the next team in order</p>
+                    <p>Bonus applies only once per question</p>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">📱 Fair Play Rules</h3>
+                    <p>❌ No phones, tablets, or internet use</p>
+                    <p>✅ Team discussion allowed during time</p>
+                    <p>⏱️ Respect the timer and other teams' turns</p>
+                    <p>🤝 Maintain silence and discipline while others play</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Projector Container -->
+    <div class="projector-container" style="display: none;">
+        
+        <!-- Header -->
+        <div class="projector-header">
+            <h1 id="quiz-title">🧠 YUZONE QUIZ 🧠</h1>
+            <div id="round-title" class="round-title">Round 1: General Knowledge</div>
+        </div>
+        
+        <!-- Question Section (Main Focus) -->
+        <div class="projector-question">
+            <div id="question-number" class="question-number">Question 1</div>
+            <div id="question-text" class="question-text">
+                Loading question...
+            </div>
+            <div id="options-container" class="options">
+                <!-- Options will be dynamically loaded here -->
+            </div>
+        </div>
+        
+        <!-- Scoreboard (Bottom) -->
+        <div class="projector-scoreboard">
+            <h2>🏆 SCOREBOARD 🏆</h2>
+            <div id="teams-container" class="teams-grid">
+                <!-- Teams will be dynamically loaded here -->
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Scripts -->
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Additional projector view specific code
+        console.log("📺 Projector view loaded");
+        
+        // Initialize quiz title from gameState
+        const titleElement = document.getElementById('quiz-title');
+        if (titleElement && gameState.quizTitle) {
+            titleElement.textContent = gameState.quizTitle;
+        }
+        
+        // Instructions overlay functions
+        function setInstructionVisibility(isVisible) {
+            const overlay = document.getElementById('instructions-overlay');
+            const projectorContainer = document.querySelector('.projector-container');
+            const timerCorner = document.querySelector('.timer-corner');
+            if (overlay) overlay.style.display = isVisible ? 'flex' : 'none';
+            if (projectorContainer) projectorContainer.style.display = isVisible ? 'none' : 'grid';
+            if (timerCorner) timerCorner.style.display = isVisible ? 'none' : 'block';
+        }
+
+        function showInstructions() {
+            setInstructionVisibility(true);
+            console.log('📖 Instructions shown');
+        }
+        
+        function hideInstructions(skipSync = false) {
+            setInstructionVisibility(false);
+            console.log('✅ Instructions hidden - Quiz ready');
+            
+            if (!skipSync) {
+                gameState.showInstructions = false;
+                saveToLocalStorage();
+                broadcastChange();
+                if (typeof syncToFirebase === 'function') {
+                    syncToFirebase(gameState);
+                }
+            }
+        }
+        
+        // Make functions globally available
+        window.showInstructions = showInstructions;
+        window.hideInstructions = hideInstructions;
+        
+        // Ensure initial visibility matches current state
+        setInstructionVisibility(gameState.showInstructions);
+        
+        // Real-time updates for projector view
+        console.log("📺 Starting real-time update system...");
+        
+        // High-frequency timer update (10 times per second for smooth countdown)
+        setInterval(() => {
+            updateTimerDisplay();
+        }, 100);
+        
+        // Update question/scores frequently
+        setInterval(() => {
+            updateQuestionDisplay();
+            updateScoreboard();
+        }, 200);
+        
+        // Also update immediately when localStorage changes (from admin)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'yuzone_quiz_state') {
+                console.log("📡 Received update from admin");
+                setTimeout(() => {
+                    updateQuestionDisplay();
+                    updateScoreboard();
+                    updateTimerDisplay();
+                }, 50);
+            }
+        });
+        
+        // Listen for keyboard shortcuts (for quick control from projector computer)
+        document.addEventListener('keydown', (e) => {
+            // Space = Start/Stop timer
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (gameState.timer.isRunning) {
+                    stopTimer();
+                } else {
+                    startTimer('pass');
+                }
+            }
+            
+            // Right Arrow = Next question
+            if (e.code === 'ArrowRight') {
+                const round = getCurrentRound();
+                if (round && gameState.currentQuestion < round.questions.length) {
+                    setCurrentQuestion(gameState.currentRound, gameState.currentQuestion + 1);
+                }
+            }
+            
+            // Left Arrow = Previous question
+            if (e.code === 'ArrowLeft') {
+                if (gameState.currentQuestion > 1) {
+                    setCurrentQuestion(gameState.currentRound, gameState.currentQuestion - 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

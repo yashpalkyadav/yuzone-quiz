@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync Test - YUZONE Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0e27;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .status {
+            padding: 20px;
+            background: #1a1f3a;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .status-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #252b4a;
+            border-radius: 5px;
+        }
+        .good { color: #c3e88d; }
+        .bad { color: #ff5370; }
+        .warning { color: #f78c6c; }
+        button {
+            padding: 10px 20px;
+            background: #64ffda;
+            color: #0a0e27;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #52d4c2;
+        }
+        #log {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Sync Test Tool</h1>
+        <p>Use this page to test if localStorage sync is working properly.</p>
+        
+        <div class="status">
+            <h2>📊 Current Status</h2>
+            <div class="status-item">
+                <strong>Current Round:</strong> <span id="current-round">-</span>
+            </div>
+            <div class="status-item">
+                <strong>Current Question:</strong> <span id="current-question">-</span>
+            </div>
+            <div class="status-item">
+                <strong>Options Visible:</strong> <span id="options-visible">-</span>
+            </div>
+            <div class="status-item">
+                <strong>Timer Running:</strong> <span id="timer-running">-</span>
+            </div>
+            <div class="status-item">
+                <strong>Time Left:</strong> <span id="time-left">-</span>
+            </div>
+            <div class="status-item">
+                <strong>Teams Count:</strong> <span id="teams-count">-</span>
+            </div>
+        </div>
+        
+        <div class="status">
+            <h2>🧪 Test Actions</h2>
+            <button onclick="testChangeQuestion()">Change Question</button>
+            <button onclick="testStartTimer()">Start Timer</button>
+            <button onclick="testStopTimer()">Stop Timer</button>
+            <button onclick="testUpdateScore()">Update Score</button>
+            <button onclick="clearStorage()">Clear Storage</button>
+            <button onclick="refreshPage()">Refresh Page</button>
+        </div>
+        
+        <div class="status">
+            <h2>📝 Activity Log</h2>
+            <div id="log"></div>
+        </div>
+        
+        <div class="status">
+            <h2>💡 Instructions</h2>
+            <ol>
+                <li>Open <strong>admin.html</strong> in another tab</li>
+                <li>Keep this test page open</li>
+                <li>Make changes in admin (change question, start timer, etc.)</li>
+                <li>Watch this page update automatically</li>
+                <li>If updates appear here, sync is working! ✅</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        let gameState = null;
+        const logDiv = document.getElementById('log');
+        
+        function log(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `[${timestamp}] ${message}`;
+            if (type === 'good') entry.style.color = '#c3e88d';
+            if (type === 'bad') entry.style.color = '#ff5370';
+            if (type === 'warning') entry.style.color = '#f78c6c';
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function updateDisplay() {
+            if (!gameState) return;
+            
+            document.getElementById('current-round').textContent = gameState.currentRound || '-';
+            document.getElementById('current-question').textContent = gameState.currentQuestion || '-';
+            document.getElementById('options-visible').textContent = gameState.optionsVisible ? 'Yes ✅' : 'No ❌';
+            document.getElementById('timer-running').textContent = gameState.timer?.isRunning ? 'Yes ⏱️' : 'No ⏹️';
+            document.getElementById('time-left').textContent = gameState.timer?.timeLeft || '0';
+            document.getElementById('teams-count').textContent = gameState.teams?.length || '0';
+        }
+        
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('yuzone_quiz_state');
+                if (saved) {
+                    gameState = JSON.parse(saved);
+                    updateDisplay();
+                    log('✅ State loaded successfully', 'good');
+                } else {
+                    log('⚠️ No saved state found', 'warning');
+                }
+            } catch (error) {
+                log('❌ Error loading state: ' + error.message, 'bad');
+            }
+        }
+        
+        // Listen for localStorage changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'yuzone_quiz_state') {
+                log('📡 Received update from another tab!', 'good');
+                loadState();
+            }
+        });
+        
+        // Poll for changes (backup method)
+        setInterval(() => {
+            const saved = localStorage.getItem('yuzone_quiz_state');
+            if (saved) {
+                const newState = JSON.parse(saved);
+                if (JSON.stringify(newState) !== JSON.stringify(gameState)) {
+                    log('🔄 State changed (detected by polling)', 'good');
+                    gameState = newState;
+                    updateDisplay();
+                }
+            }
+        }, 500);
+        
+        // Test functions
+        function testChangeQuestion() {
+            if (!gameState) gameState = { currentRound: 1, currentQuestion: 1, teams: [] };
+            gameState.currentQuestion = (gameState.currentQuestion % 3) + 1;
+            localStorage.setItem('yuzone_quiz_state', JSON.stringify(gameState));
+            log('📝 Changed question to Q' + gameState.currentQuestion);
+            updateDisplay();
+        }
+        
+        function testStartTimer() {
+            if (!gameState) gameState = { timer: {} };
+            gameState.timer = {
+                isRunning: true,
+                type: 'pass',
+                timeLeft: 30,
+                startTime: Date.now()
+            };
+            localStorage.setItem('yuzone_quiz_state', JSON.stringify(gameState));
+            log('⏱️ Started timer');
+            updateDisplay();
+        }
+        
+        function testStopTimer() {
+            if (!gameState) gameState = { timer: {} };
+            gameState.timer = {
+                isRunning: false,
+                type: 'pass',
+                timeLeft: 15,
+                startTime: null
+            };
+            localStorage.setItem('yuzone_quiz_state', JSON.stringify(gameState));
+            log('⏹️ Stopped timer');
+            updateDisplay();
+        }
+        
+        function testUpdateScore() {
+            if (!gameState) gameState = { teams: [{ id: 1, name: 'Team 1', score: 0 }] };
+            if (gameState.teams && gameState.teams.length > 0) {
+                gameState.teams[0].score += 2;
+                localStorage.setItem('yuzone_quiz_state', JSON.stringify(gameState));
+                log('🏆 Updated score: ' + gameState.teams[0].score);
+                updateDisplay();
+            }
+        }
+        
+        function clearStorage() {
+            localStorage.removeItem('yuzone_quiz_state');
+            gameState = null;
+            log('🗑️ Storage cleared', 'warning');
+            updateDisplay();
+        }
+        
+        function refreshPage() {
+            location.reload();
+        }
+        
+        // Initialize
+        log('🚀 Test tool initialized');
+        log('👀 Watching for changes...');
+        loadState();
+        
+        // Update time display
+        setInterval(() => {
+            if (gameState && gameState.timer && gameState.timer.isRunning && gameState.timer.startTime) {
+                const elapsed = Math.floor((Date.now() - gameState.timer.startTime) / 1000);
+                const duration = gameState.timer.type === 'pass' ? 30 : 15;
+                gameState.timer.timeLeft = Math.max(0, duration - elapsed);
+                updateDisplay();
+            }
+        }, 100);
+    </script>
+</body>
+</html>
